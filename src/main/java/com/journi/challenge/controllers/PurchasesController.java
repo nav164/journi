@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +39,7 @@ public class PurchasesController {
      * @return Details of purchase
      */
     @PostMapping("/purchases")
-    public Purchase save(@RequestBody PurchaseRequest purchaseRequest) {
+    public Purchase save(@RequestBody  @Valid PurchaseRequest purchaseRequest) {
         Purchase newPurchase = new Purchase(
                 purchaseRequest.getInvoiceNumber(),
                 LocalDateTime.parse(purchaseRequest.getDateTime(), DateTimeFormatter.ISO_DATE_TIME),
