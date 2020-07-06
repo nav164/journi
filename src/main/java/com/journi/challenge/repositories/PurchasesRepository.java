@@ -37,6 +37,7 @@ public class PurchasesRepository {
      * @return Purchase stats
      */
     public PurchaseStats getLast30DaysStats() {
+	PurchaseStats purchaseStats = null;
         DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE.withZone(ZoneId.of("UTC"));
 
         LocalDateTime start = LocalDate.now().atStartOfDay().minusDays(30);
@@ -45,17 +46,22 @@ public class PurchasesRepository {
                 .stream()
                 .filter(p -> p.getTimestamp().isAfter(start))
                 .collect(Collectors.toList());
-
         long countPurchases = recentPurchases.size();
         double totalAmountPurchases = recentPurchases.stream().map(purchase -> purchase.getTotalValue()).reduce(0.0, (a, b) -> a + b);
-        return new PurchaseStats(
-                formatter.format(recentPurchases.get(0).getTimestamp()),
-                formatter.format(recentPurchases.get(recentPurchases.size() - 1).getTimestamp()),
-                countPurchases,
-                totalAmountPurchases,
-                totalAmountPurchases / countPurchases,
-                recentPurchases.stream().map(purchase -> purchase.getTotalValue()).reduce(Math::min).orElse(0.0),
-                recentPurchases.stream().map(purchase -> purchase.getTotalValue()).reduce(Math::max).orElse(0.0)
-        );
+        if(recentPurchases.size()>0) {
+            purchaseStats = new PurchaseStats(
+                    formatter.format(recentPurchases.get(0).getTimestamp()),
+                    formatter.format(recentPurchases.get(recentPurchases.size() - 1).getTimestamp()),
+                    countPurchases,
+                    totalAmountPurchases,
+                    totalAmountPurchases / countPurchases,
+                    recentPurchases.stream().map(purchase -> purchase.getTotalValue()).reduce(Math::min).orElse(0.0),
+                    recentPurchases.stream().map(purchase -> purchase.getTotalValue()).reduce(Math::max).orElse(0.0)
+            ); 
+        } else {
+            purchaseStats = new PurchaseStats("dd-MM-yyyy", "dd-MM-yyyy", 0, 0, 0, 0, 0);
+        }
+        
+        return purchaseStats;
     }
 }
