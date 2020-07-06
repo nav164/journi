@@ -1,11 +1,12 @@
 package com.journi.challenge.repositories;
 
-import com.journi.challenge.models.Product;
-import org.springframework.stereotype.Component;
-import javax.inject.Named;
-import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Named;
+import javax.inject.Singleton;
+
+import com.journi.challenge.models.Product;
 
 @Named
 @Singleton
@@ -18,6 +19,10 @@ public class ProductsRepository {
         allProducts.add(new Product("photobook-landscape-hard-cover", "Photobook Landscape with Hard Cover", "EUR", 45.0));
     }
 
+    /**
+     * This method will fetch all the product
+     * @return List of products
+     */
     public List<Product> list() {
         return allProducts;
     }

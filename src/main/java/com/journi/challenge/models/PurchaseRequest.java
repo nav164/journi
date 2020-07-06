@@ -15,7 +15,7 @@ public class PurchaseRequest {
     private final String customerName;
     private final String dateTime;
     private final List<String> productIds;
-    private final Double amount;
+    private final double amount;
     private final String currencyCode;
 
     public PurchaseRequest() {
@@ -23,11 +23,11 @@ public class PurchaseRequest {
         this.customerName = null;
         this.dateTime = "01-Jan-2017";
         this.productIds = null;
-        this.amount = null;
+        this.amount = 0.0;
         this.currencyCode = null;
     }
     
-    public PurchaseRequest(String invoiceNumber, String customerName, String dateTime, List<String> productIds, Double amount, String currencyCode) {
+    public PurchaseRequest(String invoiceNumber, String customerName, String dateTime, List<String> productIds, double amount, String currencyCode) {
         this.invoiceNumber = invoiceNumber;
         this.customerName = customerName;
         this.dateTime = dateTime;
@@ -52,7 +52,7 @@ public class PurchaseRequest {
         return productIds;
     }
 
-    public Double getAmount() {
+    public double getAmount() {
         return amount;
     }
 

@@ -4,13 +4,13 @@ public class PurchaseStats {
 
     private final String from;
     private final String to;
-    private final Long countPurchases;
-    private final Double totalAmount;
-    private final Double avgAmount;
-    private final Double minAmount;
-    private final Double maxAmount;
+    private final long countPurchases;
+    private final double totalAmount;
+    private final double avgAmount;
+    private final double minAmount;
+    private final double maxAmount;
 
-    public PurchaseStats(String from, String to, Long countPurchases, Double totalAmount, Double avgAmount, Double minAmount, Double maxAmount) {
+    public PurchaseStats(String from, String to, long countPurchases, double totalAmount, double avgAmount, double minAmount, double maxAmount) {
         this.from = from;
         this.to = to;
         this.countPurchases = countPurchases;
@@ -28,23 +28,23 @@ public class PurchaseStats {
         return to;
     }
 
-    public Long getCountPurchases() {
+    public long getCountPurchases() {
         return countPurchases;
     }
 
-    public Double getTotalAmount() {
+    public double getTotalAmount() {
         return totalAmount;
     }
 
-    public Double getAvgAmount() {
+    public double getAvgAmount() {
         return avgAmount;
     }
 
-    public Double getMinAmount() {
+    public double getMinAmount() {
         return minAmount;
     }
 
-    public Double getMaxAmount() {
+    public double getMaxAmount() {
         return maxAmount;
     }
 

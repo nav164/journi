@@ -9,10 +9,10 @@ public class Product {
 
     private final String id;
     private final String description;
-    private final Double price;
+    private final double price;
     private final String currencyCode;
 
-    public Product(String id, String description, String currencyCode, Double price) {
+    public Product(String id, String description, String currencyCode, double price) {
         this.id = id;
         this.description = description;
         this.price = price;
@@ -31,7 +31,7 @@ public class Product {
         return description;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 

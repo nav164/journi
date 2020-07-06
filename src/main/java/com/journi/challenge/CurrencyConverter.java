@@ -1,17 +1,12 @@
 package com.journi.challenge;
 
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.boot.json.JacksonJsonParser;
-import org.springframework.context.annotation.Configuration;
-
-import java.io.File;
-import java.io.FileReader;
-import java.net.URL;
-import java.nio.file.Files;
-import java.util.*;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 public class CurrencyConverter {
     private final Map<String, String> supportedCountriesCurrency;
@@ -43,15 +38,32 @@ public class CurrencyConverter {
         }
     }
 
+    /**
+     * This method will return the currency code for given country code
+     * @param countryCode Country code
+     * @return
+     */
     public String getCurrencyForCountryCode(String countryCode) {
         return supportedCountriesCurrency.getOrDefault(countryCode.toUpperCase(), "EUR");
     }
 
-    public Double convertEurToCurrency(String currencyCode, Double eurValue) {
+    /**
+     * This method will convert the EUR currency to given currency code value
+     * @param currencyCode
+     * @param eurValue
+     * @return
+     */
+    public double convertEurToCurrency(String currencyCode, Double eurValue) {
         return eurValue * currencyEurRate.getOrDefault(currencyCode, 1.0);
     }
     
-    public Double convertCurrencyToEur(String currencyCode, Double eurValue) {
-	return eurValue/currencyEurRate.getOrDefault(currencyCode, 1.0);
+    /**
+     * This method will convert given currency to EUR currency value
+     * @param currencyCode Input currency code
+     * @param value amount of given currency
+     * @return will return double type value
+     */
+    public double convertCurrencyToEur(String currencyCode, Double value) {
+	return value / currencyEurRate.getOrDefault(currencyCode, 1.0);
     }
 }

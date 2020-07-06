@@ -30,4 +30,10 @@ class CurrencyConverterTest {
         assertEquals(25.0, currencyConverter.convertEurToCurrency("EUR", 25.0));
         assertEquals(25.0 * 5.1480, currencyConverter.convertEurToCurrency("BRL", 25.0));
     }
+    
+    @Test
+    void convertSupportedCurrencyValueToEUR() {
+        assertEquals(25.0, currencyConverter.convertCurrencyToEur("EUR", 25.0));
+        assertEquals(25.0 / 5.1480, currencyConverter.convertCurrencyToEur("BRL", 25.0));
+    }
 }

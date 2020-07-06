@@ -18,10 +18,15 @@ public class ProductsController {
     private ProductsRepository productsRepository;
     CurrencyConverter currencyConverter = new CurrencyConverter();
 
+    /**
+     * This method will get all the product details with converted product price as per the country code
+     * @param countryCode
+     * @return List of products
+     */
     @GetMapping("/products")
     public List<Product> list(@RequestParam(name = "countryCode", defaultValue = "AT") String countryCode) {
         return productsRepository.list().stream()
-        	.map(product -> new Product(product.getId(), product.getDescription(), countryCode,
+        	.map(product -> new Product(product.getId(), product.getDescription(), currencyConverter.getCurrencyForCountryCode(countryCode),
         		currencyConverter.convertEurToCurrency(currencyConverter.getCurrencyForCountryCode(countryCode), product.getPrice())))
         	.collect(Collectors.toList());
     }
