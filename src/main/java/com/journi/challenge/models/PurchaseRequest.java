@@ -1,6 +1,8 @@
 package com.journi.challenge.models;
 
 import java.util.List;
+
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -11,13 +13,16 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class PurchaseRequest {
 
-    @NotNull(message = " Invoice number can not be empty")
+    @NotNull(message = "Invoice number can not be empty")
+    @NotBlank(message = "Invoice number can not be blank")
     private final String invoiceNumber;
     
     @NotNull(message = "Customer name can not be empty")
+    @NotBlank(message = "Customer name can not be blank")
     private final String customerName;
     
     @NotNull(message = "Date time can not be empty")
+    @NotBlank(message = "Date time can not be blank")
     private final String dateTime;
     
     @NotNull(message = "Product id list can not be empty")
@@ -27,6 +32,7 @@ public class PurchaseRequest {
     private final double amount;
     
     @NotNull(message = "Currency code can not be empty")
+    @NotBlank(message = "Currency code can not be blank")
     private final String currencyCode;
 
     public PurchaseRequest() {

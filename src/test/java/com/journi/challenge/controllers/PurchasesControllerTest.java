@@ -2,6 +2,7 @@ package com.journi.challenge.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.jayway.jsonpath.JsonPath;
 import com.journi.challenge.models.Purchase;
 import com.journi.challenge.models.PurchaseStats;
 import com.journi.challenge.repositories.PurchasesRepository;
@@ -43,7 +45,7 @@ class PurchasesControllerTest {
         mockMvc.perform(post("/purchases")
                 .contentType(MediaType.APPLICATION_JSON).content(body)
         ).andExpect(status().isOk());
-
+        
         Purchase savedPurchase = purchasesRepository.list().get(purchasesRepository.list().size() - 1);
         assertEquals("customer 1", savedPurchase.getCustomerName());
         assertEquals("1", savedPurchase.getInvoiceNumber());
@@ -51,6 +53,23 @@ class PurchasesControllerTest {
         assertEquals(25.34, savedPurchase.getTotalValue());
         assertEquals("EUR", savedPurchase.getCurrencyCode());
     }
+    
+    @Test
+    public void testNullCheckForInvoiceNumber() throws Exception {
+        String body = getPurchaseJson("", "customer 1", "2020-01-01T10:00:00+01:00", 25.34, "EUR", "product1");
+        mockMvc.perform(post("/purchases")
+                .contentType(MediaType.APPLICATION_JSON).content(body)
+        ).andExpect(status().isUnauthorized());
+    }
+    
+    @Test
+    public void testNullCheckForCustomerName() throws Exception {
+        String body = getPurchaseJson("1", "", "2020-01-01T10:00:00+01:00", 25.34, "EUR", "product1");
+        mockMvc.perform(post("/purchases")
+                .contentType(MediaType.APPLICATION_JSON).content(body)
+        ).andExpect(status().isUnauthorized());
+    }
+    
     
     @Test
     public void testPurchaseCurrencyCodeHKD() throws Exception {

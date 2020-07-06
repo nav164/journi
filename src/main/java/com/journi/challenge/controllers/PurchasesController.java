@@ -6,9 +6,13 @@ import java.time.format.DateTimeFormatter;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.journi.challenge.CurrencyConverter;
@@ -39,7 +43,10 @@ public class PurchasesController {
      * @return Details of purchase
      */
     @PostMapping("/purchases")
-    public Purchase save(@RequestBody  @Valid PurchaseRequest purchaseRequest) {
+    public ResponseEntity<?> save(@RequestBody  @Valid PurchaseRequest purchaseRequest, Errors errors) {
+	if (errors.hasErrors()) {
+            return new ResponseEntity<>("Invalid request", HttpStatus.UNAUTHORIZED);
+        }
         Purchase newPurchase = new Purchase(
                 purchaseRequest.getInvoiceNumber(),
                 LocalDateTime.parse(purchaseRequest.getDateTime(), DateTimeFormatter.ISO_DATE_TIME),
@@ -49,6 +56,6 @@ public class PurchasesController {
                 "EUR"
         );
         purchasesRepository.save(newPurchase);
-        return newPurchase;
+        return new ResponseEntity<>("Purchase saved", HttpStatus.OK);
     }
 }

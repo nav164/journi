@@ -1,8 +1,6 @@
 package com.journi.challenge.models;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.List;
 
 /**
