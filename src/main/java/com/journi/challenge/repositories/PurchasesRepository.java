@@ -1,17 +1,19 @@
 package com.journi.challenge.repositories;
 
-import com.journi.challenge.models.Purchase;
-import com.journi.challenge.models.PurchaseStats;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
-import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjuster;
-import java.time.temporal.TemporalField;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.StreamSupport;
+
+import com.journi.challenge.models.Purchase;
+import com.journi.challenge.models.PurchaseStats;
 
 @Named
 @Singleton
