@@ -50,7 +50,7 @@ public class PurchasesRepository {
                 .collect(Collectors.toList());
         long countPurchases = recentPurchases.size();
         double totalAmountPurchases = recentPurchases.stream().map(purchase -> purchase.getTotalValue()).reduce(0.0, (a, b) -> a + b);
-        if(recentPurchases.size()>0) {
+        if(recentPurchases.size() > 0) {
             purchaseStats = new PurchaseStats(
                     formatter.format(recentPurchases.get(0).getTimestamp()),
                     formatter.format(recentPurchases.get(recentPurchases.size() - 1).getTimestamp()),
